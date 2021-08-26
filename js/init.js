@@ -25,3 +25,31 @@ document.addEventListener("DOMContentLoaded", () => {
         color = !color
     }
 })
+
+
+function createPiece() {
+    let white_pieces = [];
+    let black_pieces = [];
+    for (let i = 0; i <= 7; i++) {
+        white_pieces.push(new Peon(`Wpawn${i}`, 1));
+        black_pieces.push(new Peon(`Bpawn${i}`, 0));
+    }
+    for (let i = 0; i <= 1; i++) {
+        white_pieces.push(new Caballo(`Wknight${i}`, 1));
+        white_pieces.push(new Torre(`Wrook${i}`, 1));
+        white_pieces.push(new Alfil(`Wbishop${i}`, 1));
+        black_pieces.push(new Caballo(`Bknight${i}`, 0));
+        black_pieces.push(new Torre(`Brook${i}`, 1));
+        black_pieces.push(new Alfil(`Bbishop${i}`, 1));
+    }
+    white_pieces.push(new Rey(`Wking`, 1))
+    white_pieces.push(new Reina(`Wqueen`, 1))
+    black_pieces.push(new Rey(`Bking`, 0))
+    black_pieces.push(new Reina(`Bqueen`, 0))
+
+    return [white_pieces, black_pieces];
+}
+
+function startGame() {
+
+}
