@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     for (let i = 8; i >= 1; i--) {
         for (let j = 1; j <= 8; j++) {
-            if (color) {
+            if (!color) {
                 casillas = `<div class="casilla casilla--black" id="${letter[j]}${i}"></div>`
             } else {
                 casillas = `<div class="casilla casilla--white" id="${letter[j]}${i}"></div>`
@@ -22,5 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
             game.innerHTML += casillas
             color = !color
         }
+        color = !color
     }
 })

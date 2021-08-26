@@ -33,3 +33,12 @@
     width: 60px;
     height: 60px;
 }
+
+.casilla--black{
+    background-color: lightslategray;
+
+}
+
+.casilla--white{
+    background-color: seashell;
+}
