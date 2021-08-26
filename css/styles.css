@@ -1,0 +1,35 @@
+
+*{
+    box-sizing: border-box;
+}
+
+
+.table{
+    position: relative;
+    box-sizing: content-box;
+
+    width: 480px;
+    height: 480px;
+    padding: 3em;
+
+
+    background-color: lightcoral;
+}
+.game{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    top: 3em;
+    left: 3em;
+
+    width: 480px;
+    height: 480px;
+
+
+    background-color: lightgreen;
+}
+.casilla{
+    width: 60px;
+    height: 60px;
+}
