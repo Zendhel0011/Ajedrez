@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             game.innerHTML += casillas;
             color = !color;
-            positions[`${letter[j]}${i}`] = "";
+            positions[letter[j]] = [];
         }
         color = !color;
     }
@@ -75,9 +75,45 @@ let pieces = createPieces();
 const startGame = () => {
 
     //Se posicionan las piezas blancas
+    let colors = {
+        1 : "white",
+        2 : "white",
+        7 : "black",
+        8 : "black"
+    };
 
-    pieces.white.rooks[0].position = "A1";
-    positions.A1 = pieces.white.rooks[0].id;
+    let initialPieces = {
+        1 : ["rooks", 0], 
+        2 : ["knights", 0], 
+        3 : ["bishops", 0], 
+        4 : "queen", 
+        5 : "king", 
+        6 : ["bishops", 1], 
+        7 : ["knights", 1], 
+        8 : ["rooks", 1]
+    };
+    
+    for (let i = 1; i <= 8; i++) {
+        for (let j = 1; j <= 8; j++) {
+            if (i === 1 || i === 8) {
+                if (j !== 4 && j !== 5) {
+                    positions[letter[j]].push(pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]].id);
+                }
+                else{
+                    positions[letter[j]].push(pieces[`${colors[i]}`][initialPieces[j]].id);
+                }
+            }
+            else if (i === 2 || i === 7) {
+                positions[letter[j]].push(pieces[`${colors[i]}`].pawns[j - 1].id);
+            }
+            else {
+                positions[letter[j]].push(null);
+            }
+        }
+    }
+
+    /*pieces.white.rooks[0].position = "A1";
+    positions['A'].push = pieces.white.rooks[0].id;
 
     pieces.white.knights[0].position = "B1";
     positions.B1 = pieces.white.knights[0].id;
@@ -134,7 +170,7 @@ const startGame = () => {
 
         pieces.white.pawns[i-1].position = `${letter[i]}7`;
         positions[`${letter[i]}7`] = pieces.black.pawns[i-1].id;
-    }
+    }*/
     
     //Se dibujan las piezas en la fase inicial
 
@@ -147,7 +183,7 @@ const startGame = () => {
 }
 
 const draw = (position) => {
-    let id = positions[position];
+    let id = positions[position[0]][parseInt(position[1]) - 1];
     let color = "";
     let imagen;
 
