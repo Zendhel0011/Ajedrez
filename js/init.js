@@ -70,8 +70,7 @@ const createPieces = () => {
     return { white: white_pieces, black: black_pieces };
 }
 
-let pieces = createPieces();
-function positionePieces() {
+function positionePieces(pieces) {
     //Colores iniciales segun fila
     let colors = {
         1: "white",
@@ -91,7 +90,6 @@ function positionePieces() {
         7: ["knights", 1],
         8: ["rooks", 1]
     };
-
     //Se asigna a cada casilla una pieza, si no le toca tener una pieza al inicio, se queda con contenido null
     //y tambien se asigna a cada pieza su posicion inicial de la forma "(letra)(numero)"
     for (let i = 1; i <= 8; i++) {
@@ -123,11 +121,9 @@ function positionePieces() {
 }
 
 const startGame = () => {
-    positionePieces()
-
-
+    let pieces = createPieces();
+    positionePieces(pieces);
     //Se dibujan las piezas en la fase inicial
-
     for (i = 1; i <= 8; i++) {
         draw(`${letter[i]}8`);
         draw(`${letter[i]}7`);
@@ -142,6 +138,6 @@ const draw = (position) => {
     let alt = piece.description;
 
     document.getElementById(position).innerHTML = `
-    <img src=${imagen} alt="pieza ${alt}">
+    <img src=${imagen} alt="Pieza ${alt}">
     `;
 }
