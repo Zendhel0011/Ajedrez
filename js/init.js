@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             game.innerHTML += casillas;
             color = !color;
-            positions[letter[j]] = [];
+            positions[letter[j]] = {};
         }
         color = !color;
     }
@@ -74,103 +74,54 @@ let pieces = createPieces();
 
 const startGame = () => {
 
-    //Se posicionan las piezas blancas
+    //Colores iniciales segun fila
     let colors = {
-        1 : "white",
-        2 : "white",
-        7 : "black",
-        8 : "black"
+        1: "white",
+        2: "white",
+        7: "black",
+        8: "black"
     };
 
+    //Piezas iniciales en fila 1 y 8
     let initialPieces = {
-        1 : ["rooks", 0], 
-        2 : ["knights", 0], 
-        3 : ["bishops", 0], 
-        4 : "queen", 
-        5 : "king", 
-        6 : ["bishops", 1], 
-        7 : ["knights", 1], 
-        8 : ["rooks", 1]
+        1: ["rooks", 0], 
+        2: ["knights", 0], 
+        3: ["bishops", 0], 
+        4: "queen", 
+        5: "king", 
+        6: ["bishops", 1], 
+        7: ["knights", 1], 
+        8: ["rooks", 1]
     };
     
+    //Se asigna a cada casilla una pieza, si no le toca tener una pieza al inicio, se queda con contenido null
+    //y tambien se asigna a cada pieza su posicion inicial de la forma "(letra)(numero)"
     for (let i = 1; i <= 8; i++) {
         for (let j = 1; j <= 8; j++) {
+            //Se asignan las piezas grandes
             if (i === 1 || i === 8) {
+                //Si la pieza no es el rey ni la reina, tiene un numero de pieza
                 if (j !== 4 && j !== 5) {
-                    positions[letter[j]].push(pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]].id);
+                    pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]].position = `${letter[j]}${i}`;
+                    positions[letter[j]][i] = pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]].id;
                 }
+                //Si si es rey o reina, no tiene numero
                 else{
-                    positions[letter[j]].push(pieces[`${colors[i]}`][initialPieces[j]].id);
+                    pieces[`${colors[i]}`][initialPieces[j]].position = `${letter[j]}${i}`;
+                    positions[letter[j]][i] = pieces[`${colors[i]}`][initialPieces[j]].id;
                 }
             }
+            //Se asignan los peones
             else if (i === 2 || i === 7) {
-                positions[letter[j]].push(pieces[`${colors[i]}`].pawns[j - 1].id);
+                pieces[`${colors[i]}`].pawns[j - 1].position = `${letter[j]}${i}`;
+                positions[letter[j]][i] = pieces[`${colors[i]}`].pawns[j - 1].id;
             }
+            //Se dejan los espacios vacios
             else {
-                positions[letter[j]].push(null);
+                positions[letter[j]][i] = null;
             }
         }
     }
-
-    /*pieces.white.rooks[0].position = "A1";
-    positions['A'].push = pieces.white.rooks[0].id;
-
-    pieces.white.knights[0].position = "B1";
-    positions.B1 = pieces.white.knights[0].id;
-
-    pieces.white.bishops[0].position = "C1";
-    positions.C1 = pieces.white.bishops[0].id;
-
-    pieces.white.queen.position = "D1";
-    positions.D1 = pieces.white.queen.id;
-
-    pieces.white.king.position = "E1";
-    positions.E1 = pieces.white.king.id;
-
-    pieces.white.bishops[1].position = "F1";
-    positions.F1 = pieces.white.bishops[1].id;
-
-    pieces.white.knights[1].position = "G1";
-    positions.G1 = pieces.white.knights[1].id;
-
-    pieces.white.rooks[1].position = "H1";
-    positions.H1 = pieces.white.rooks[1].id;
-
-    //Se posicionan las piezas negras
-
-    pieces.black.rooks[0].position = "A8";
-    positions.A8 = pieces.black.rooks[0].id;
-
-    pieces.black.knights[0].position = "B8";
-    positions.B8 = pieces.black.knights[0].id;
-
-    pieces.black.bishops[0].position = "C8";
-    positions.C8 = pieces.black.bishops[0].id;
-
-    pieces.black.queen.position = "D8";
-    positions.D8 = pieces.black.queen.id;
-
-    pieces.black.king.position = "E8";
-    positions.E8 = pieces.black.king.id;
-
-    pieces.black.bishops[1].position = "F8";
-    positions.F8 = pieces.black.bishops[1].id;
-
-    pieces.black.knights[1].position = "G8";
-    positions.G8 = pieces.black.knights[1].id;
-
-    pieces.black.rooks[1].position = "H8";
-    positions.H8 = pieces.black.rooks[1].id;
-
-    //Se posicionan los peones
-
-    for (let i = 1; i <= 8; i++) {
-        pieces.white.pawns[i-1].position = `${letter[i]}2`;
-        positions[`${letter[i]}2`] = pieces.white.pawns[i-1].id;
-
-        pieces.white.pawns[i-1].position = `${letter[i]}7`;
-        positions[`${letter[i]}7`] = pieces.black.pawns[i-1].id;
-    }*/
     
     //Se dibujan las piezas en la fase inicial
 
@@ -183,12 +134,11 @@ const startGame = () => {
 }
 
 const draw = (position) => {
-    let id = positions[position[0]][parseInt(position[1]) - 1];
+    let id = positions[position[0]][position[1]];
     let color = "";
     let imagen;
 
     //Se descompone la id de la pieza en: color, tipo de pieza y numero de pieza (si tiene)
-
     if (id[0] === 'W') {
         color = "white";
     }
