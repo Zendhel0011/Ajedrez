@@ -136,6 +136,8 @@ const startGame = () => {
         positions[`${letter[i]}7`] = pieces.black.pawns[i-1].id;
     }
     
+    //Se dibujan las piezas en la fase inicial
+
     for (i=1; i<=8; i++) {
         draw(`${letter[i]}8`);
         draw(`${letter[i]}7`);
@@ -148,6 +150,9 @@ const draw = (position) => {
     let id = positions[position];
     let color = "";
     let imagen;
+
+    //Se descompone la id de la pieza en: color, tipo de pieza y numero de pieza (si tiene)
+
     if (id[0] === 'W') {
         color = "white";
     }
