@@ -135,14 +135,35 @@ const startGame = () => {
         pieces.white.pawns[i-1].position = `${letter[i]}7`;
         positions[`${letter[i]}7`] = pieces.black.pawns[i-1].id;
     }
-
-    for (let i = 1; i <= 8; i++) {
-
+    
+    for (i=1; i<=8; i++) {
+        draw(`${letter[i]}8`);
+        draw(`${letter[i]}7`);
+        draw(`${letter[i]}2`);
+        draw(`${letter[i]}1`);
     }
 }
 
-/*const print = (position) => {
+const draw = (position) => {
+    let id = positions[position];
+    let color = "";
+    let imagen;
+    if (id[0] === 'W') {
+        color = "white";
+    }
+    else {
+        color = "black";
+    }
+    if (/[0-7]/.test(id[id.length-1])) {
+        let type = id.substr(1, id.length-2);
+        let number = id[id.length-1]
+        imagen = pieces[color][`${type}s`][number].img;
+    }
+    else {
+        let type = id.substr(1, id.length-1);
+        imagen = pieces[color][type].img;
+    }
     document.getElementById(position).innerHTML = `
-    <img src=${}>
-    `
-}*/
+    <img src=${imagen} width=100%>
+    `;
+}
