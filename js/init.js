@@ -67,13 +67,11 @@ const createPieces = () => {
     black_pieces.king = new Rey(`Bking`, 0);
     black_pieces.queen = new Reina(`Bqueen`, 0);
 
-    return {white : white_pieces, black : black_pieces};
+    return { white: white_pieces, black: black_pieces };
 }
 
 let pieces = createPieces();
-
-const startGame = () => {
-
+function positionePieces() {
     //Colores iniciales segun fila
     let colors = {
         1: "white",
@@ -84,16 +82,16 @@ const startGame = () => {
 
     //Piezas iniciales en fila 1 y 8
     let initialPieces = {
-        1: ["rooks", 0], 
-        2: ["knights", 0], 
-        3: ["bishops", 0], 
-        4: "queen", 
-        5: "king", 
-        6: ["bishops", 1], 
-        7: ["knights", 1], 
+        1: ["rooks", 0],
+        2: ["knights", 0],
+        3: ["bishops", 0],
+        4: "queen",
+        5: "king",
+        6: ["bishops", 1],
+        7: ["knights", 1],
         8: ["rooks", 1]
     };
-    
+
     //Se asigna a cada casilla una pieza, si no le toca tener una pieza al inicio, se queda con contenido null
     //y tambien se asigna a cada pieza su posicion inicial de la forma "(letra)(numero)"
     for (let i = 1; i <= 8; i++) {
@@ -103,18 +101,18 @@ const startGame = () => {
                 //Si la pieza no es el rey ni la reina, tiene un numero de pieza
                 if (j !== 4 && j !== 5) {
                     pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]].position = `${letter[j]}${i}`;
-                    positions[letter[j]][i] = pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]].id;
+                    positions[letter[j]][i] = pieces[`${colors[i]}`][initialPieces[j][0]][initialPieces[j][1]];
                 }
                 //Si si es rey o reina, no tiene numero
-                else{
+                else {
                     pieces[`${colors[i]}`][initialPieces[j]].position = `${letter[j]}${i}`;
-                    positions[letter[j]][i] = pieces[`${colors[i]}`][initialPieces[j]].id;
+                    positions[letter[j]][i] = pieces[`${colors[i]}`][initialPieces[j]];
                 }
             }
             //Se asignan los peones
             else if (i === 2 || i === 7) {
                 pieces[`${colors[i]}`].pawns[j - 1].position = `${letter[j]}${i}`;
-                positions[letter[j]][i] = pieces[`${colors[i]}`].pawns[j - 1].id;
+                positions[letter[j]][i] = pieces[`${colors[i]}`].pawns[j - 1];
             }
             //Se dejan los espacios vacios
             else {
@@ -122,10 +120,15 @@ const startGame = () => {
             }
         }
     }
-    
+}
+
+const startGame = () => {
+    positionePieces()
+
+
     //Se dibujan las piezas en la fase inicial
 
-    for (i=1; i<=8; i++) {
+    for (i = 1; i <= 8; i++) {
         draw(`${letter[i]}8`);
         draw(`${letter[i]}7`);
         draw(`${letter[i]}2`);
@@ -134,27 +137,11 @@ const startGame = () => {
 }
 
 const draw = (position) => {
-    let id = positions[position[0]][position[1]];
-    let color = "";
-    let imagen;
+    let piece = positions[position[0]][position[1]];
+    let imagen = piece.img;
+    let alt = piece.description;
 
-    //Se descompone la id de la pieza en: color, tipo de pieza y numero de pieza (si tiene)
-    if (id[0] === 'W') {
-        color = "white";
-    }
-    else {
-        color = "black";
-    }
-    if (/[0-7]/.test(id[id.length-1])) {
-        let type = id.substr(1, id.length-2);
-        let number = id[id.length-1]
-        imagen = pieces[color][`${type}s`][number].img;
-    }
-    else {
-        let type = id.substr(1, id.length-1);
-        imagen = pieces[color][type].img;
-    }
     document.getElementById(position).innerHTML = `
-    <img src=${imagen} width=100%>
+    <img src=${imagen} alt="pieza ${alt}">
     `;
 }
