@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         color = !color;
     }
+    events()
 });
 
 //Crea las piezas y las ordena en categorias
