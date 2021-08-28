@@ -123,21 +123,12 @@ function positionePieces(pieces) {
 const startGame = () => {
     let pieces = createPieces();
     positionePieces(pieces);
+    
     //Se dibujan las piezas en la fase inicial
     for (i = 1; i <= 8; i++) {
-        draw(`${letter[i]}8`);
-        draw(`${letter[i]}7`);
-        draw(`${letter[i]}2`);
-        draw(`${letter[i]}1`);
+        positions[letter[i]][8].draw()
+        positions[letter[i]][7].draw()
+        positions[letter[i]][2].draw()
+        positions[letter[i]][1].draw()
     }
-}
-
-const draw = (position) => {
-    let piece = positions[position[0]][position[1]];
-    let imagen = piece.img;
-    let alt = piece.description;
-
-    document.getElementById(position).innerHTML = `
-    <img src=${imagen} alt="Pieza ${alt}">
-    `;
 }
