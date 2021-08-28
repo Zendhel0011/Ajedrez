@@ -1,10 +1,11 @@
 class Pieza {
-    constructor(id, color, position = null, state = "Alive", img = "") {
+    constructor(id, color, position = null, state = "Alive") {
+
         this.id = id;
         this.color = color;
         this.position = position;
         this.state = state;
-        this.img = img;
+        this.img = "";
     }
 
     draw = () => {
@@ -24,9 +25,10 @@ const colores = {
 }
 
 class Peon extends Pieza {
-    constructor(id, color, position = null, state = "Alive", img = `img/pawn_${color}.png`) {
-        super(id, color, position, state, img);
+    constructor(id, color, position = null, state = "Alive") {
+        super(id, color, position, state);
         this.description = `Peon ${colores[color]}o ajedrez`
+        this.img = `img/pawn_${color}.png`
     }
 
     move = () => {
@@ -59,41 +61,46 @@ class Peon extends Pieza {
 }
 
 class Torre extends Pieza {
-    constructor(id, color, position = null, state = "Alive", img = `img/rook_${color}.png`) {
-        super(id, color, position, state, img);
+    constructor(id, color, position = null, state = "Alive") {
+        super(id, color, position, state);
         this.description = `Torre ${colores[color]}a ajedrez`
+        this.img = `img/rook_${color}.png`
     }
 
 }
 
 class Caballo extends Pieza {
-    constructor(id, color, position = null, state = "Alive", img = `img/knight_${color}.png`) {
-        super(id, color, position, state, img);
+    constructor(id, color, position = null, state = "Alive") {
+        super(id, color, position, state);
         this.description = `Caballo ${colores[color]}o ajedrez`
+        this.img = `img/knight_${color}.png`
     }
 
 }
 
 class Reina extends Pieza {
-    constructor(id, color, position = null, state = "Alive", img = `img/queen_${color}.png`) {
-        super(id, color, position, state, img);
+    constructor(id, color, position = null, state = "Alive") {
+        super(id, color, position, state);
         this.description = `Reina ${colores[color]}a ajedrez`
+        this.img = `img/queen_${color}.png`
     }
 
 }
 
 class Rey extends Pieza {
-    constructor(id, color, position = null, state = "Alive", img = `img/king_${color}.png`) {
-        super(id, color, position, state, img);
+    constructor(id, color, position = null, state = "Alive") {
+        super(id, color, position, state);
         this.description = `Rey ${colores[color]}o ajedrez`
+        this.img = `img/king_${color}.png`
     }
 
 }
 
 class Alfil extends Pieza {
-    constructor(id, color, position = null, state = "Alive", img = `img/bishop_${color}.png`) {
-        super(id, color, position, state, img);
+    constructor(id, color, position = null, state = "Alive") {
+        super(id, color, position, state);
         this.description = `Alfil ${colores[color]}o ajedrez`
+        this.img = `img/bishop_${color}.png`
     }
 
 }
