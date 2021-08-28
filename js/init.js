@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         color = !color;
     }
-
+    startGame();
 });
 
 //Crea las piezas y las ordena en categorias

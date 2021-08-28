@@ -38,9 +38,17 @@ class Peon extends Pieza {
             let x = this.position[0]
             let y = Number(this.position[1])
             let moves = [];
-            if (positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1].color != this.color) {
-                moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y - 1}`)
+            if (x !== "H") {
+                if (positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1].color != this.color) {
+                    moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y - 1}`)
+                }
             }
+            if (x !== "A") {
+                if (positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1].color != this.color) {
+                    moves.push(`${String.fromCharCode(x.charCodeAt() - 1)}${y - 1}`)
+                }
+            }
+
 
             if (y === 7) {
                 console.log(positions[x][y - 1], positions[x][y - 2])
