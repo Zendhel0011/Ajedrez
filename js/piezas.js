@@ -7,10 +7,14 @@ class Pieza {
         this.img = img;
     }
 
-    draw() {
+    draw = () => {
         document.getElementById(this.position).innerHTML = `
         <img src=${this.img} alt="${this.description}">
         `;
+    }
+
+    possiblesMoves = () => {
+        console.log("Esta no se mueve")
     }
 }
 
@@ -23,6 +27,25 @@ class Peon extends Pieza {
     constructor(id, color, position = null, state = "Alive", img = `img/pawn_${color}.png`) {
         super(id, color, position, state, img);
         this.description = `Peon ${colores[color]}o ajedrez`
+    }
+
+    move = () => {
+
+    }
+
+    possiblesMoves = () => {
+        if (this.color === 0 && Object.values(letter).indexOf(this.position[0]) != -1) {
+            let x = this.position[0]
+            let y = Number(this.position[1])
+            let moves = [];
+            if (positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1].color != this.color) {
+                moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y - 1}`)
+            }
+
+            if (y === 7) {
+                console.log(positions[x][y - 1], positions[x][y - 2])
+            }
+        }
     }
 
 }

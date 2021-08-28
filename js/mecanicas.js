@@ -5,7 +5,9 @@ const events = () => {
         for (let j = 1; j <= 8; j++) {
             let square = document.getElementById(`${letter[j]}${i}`)
             square.addEventListener("click", () => {
-                alert(square.id);
+                let currentPiece = positions[square.id[0]][square.id[1]];
+                console.log(square.id)
+                currentPiece.possiblesMoves();
             })
         }
     }
