@@ -101,35 +101,30 @@ class Caballo extends Pieza {
         let x = this.position[0];
         let y = Number(this.position[1]);
         let moves = [];
-        let xLimits = [0, 0];
-        let yLimits = [0, 0];
-        
-        let limits = {
-            A: [-1, -2],
-            B: [0, -2],
-            G: [0, 2],
-            H: [1, 2],
-            1: [-1, -2],
-            2: [0, -2],
-            7: [0, 2],
-            8: [1, 2]
-        }
-        xLimits.push(limits[x][0], limits[x][1]);
-        yLimits.push(limits[y][0], limits[y][1]);
 
-        if (xLimits[0] === 0 && xLimits[1] === 0) {
-            
-        }
-        
-
-        if (x !== "H") {
-            if (positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1].color != this.color) {
-                moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y - 1}`)
+        let direction = 1;
+        let variator = 1;
+        let currentPosition = {};
+        while(direction <= 4){
+            switch(direction) {
+                case 1: currentPosition = {x: x.charCodeAt() + variator, y: y + 2};
+                break;
+                case 2: currentPosition = {x: x.charCodeAt() + 2, y: y + variator};
+                break;
+                case 3: currentPosition = {x: x.charCodeAt() + variator, y: y - 2};
+                break;
+                case 4: currentPosition = {x: x.charCodeAt() - 2, y: y + variator};
+                break;
             }
-        }
-        if (x !== "A") {
-            if (positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1].color != this.color) {
-                moves.push(`${String.fromCharCode(x.charCodeAt() - 1)}${y - 1}`)
+            if (currentPosition.x <= 72 && currentPosition.x >= 65 && currentPosition.y <= 8 && currentPosition.y >= 1){
+                if (!positions[String.fromCharCode(currentPosition.x)][currentPosition.y] || positions[String.fromCharCode(currentPosition.x)][currentPosition.y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPosition.x)}${currentPosition.y}`);
+                }
+            }
+            variator -= 2;
+            if (variator < -1) {
+            direction++;
+            variator = 1;
             }
         }
         return moves;
