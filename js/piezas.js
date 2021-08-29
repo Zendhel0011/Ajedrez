@@ -1,3 +1,4 @@
+//Clase abstracta para las piezas
 class Pieza {
     constructor(id, color, position = null, state = "Alive") {
 
@@ -7,7 +8,7 @@ class Pieza {
         this.state = state;
         this.img = "";
     }
-
+    //Metodo para ubicar la pieza visualmente en el html.
     draw = () => {
         document.getElementById(this.position).innerHTML = `
         <img src=${this.img} alt="${this.description}">
@@ -23,8 +24,15 @@ const colores = {
     0: "negr",
     1: "blanc"
 }
-
+//clase para pieza peon
 class Peon extends Pieza {
+    /* Instancia una pieza "peon"
+    
+    <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
+    <color> 1 para piezas blancas, 0 para piezas negras
+    <position> Debe ser la coordenada donde se encuentra la pieza en el tablero Ej: "A2" 
+    <state> Es el estado de la pieza "Alive" para piezas vivas (Aun no se hace nada con este atributo)
+    */
     constructor(id, color, position = null, state = "Alive") {
         super(id, color, position, state);
         this.description = `Peon ${colores[color]}o ajedrez`;
@@ -34,7 +42,7 @@ class Peon extends Pieza {
     move = () => {
 
     }
-
+    //Funcion que devuelve un array con los posibles movimientos para el peón en la posicion actual.
     possiblesMoves = () => {
         let x = this.position[0]
         let y = Number(this.position[1])
@@ -80,11 +88,21 @@ class Peon extends Pieza {
 }
 
 class Torre extends Pieza {
+    /* Instancia una pieza "torre"
+
+    <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
+    <color> 1 para piezas blancas, 0 para piezas negras
+    <position> Debe ser la coordenada donde se encuentra la pieza en el tablero Ej: "A2"
+    <state> Es el estado de la pieza "Alive" para piezas vivas (Aun no se hace nada con este atributo)
+    */
     constructor(id, color, position = null, state = "Alive") {
         super(id, color, position, state);
         this.description = `Torre ${colores[color]}a ajedrez`;
         this.img = `img/rook_${color}.png`;
     }
+
+
+    //Función que devuelve un array con los posibles movimientos para la torre en la posicion actual.
     possiblesMoves = () => {
         let moves = [];
         let x = this.position[0];
@@ -136,6 +154,13 @@ class Torre extends Pieza {
 }
 
 class Caballo extends Pieza {
+    /* Instancia una pieza "caballo"
+    
+        <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
+        <color> 1 para piezas blancas, 0 para piezas negras
+        <position> Debe ser la coordenada donde se encuentra la pieza en el tablero Ej: "A2"
+        <state> Es el estado de la pieza "Alive" para piezas vivas (Aun no se hace nada con este atributo)
+        */
     constructor(id, color, position = null, state = "Alive") {
         super(id, color, position, state);
         this.description = `Caballo ${colores[color]}o ajedrez`;
@@ -144,6 +169,7 @@ class Caballo extends Pieza {
 
     move = () => { }
 
+    //Método que devuelve un array con los posibles movimientos para el caballo en la posicion actual.
     possiblesMoves = () => {
 
         let x = this.position[0];
@@ -153,33 +179,40 @@ class Caballo extends Pieza {
         let direction = 1;
         let variator = 1;
         let currentPosition = {};
-        while(direction <= 4){
-            switch(direction) {
-                case 1: currentPosition = {x: x.charCodeAt() + variator, y: y + 2};
-                break;
-                case 2: currentPosition = {x: x.charCodeAt() + 2, y: y + variator};
-                break;
-                case 3: currentPosition = {x: x.charCodeAt() + variator, y: y - 2};
-                break;
-                case 4: currentPosition = {x: x.charCodeAt() - 2, y: y + variator};
-                break;
+        while (direction <= 4) {
+            switch (direction) {
+                case 1: currentPosition = { x: x.charCodeAt() + variator, y: y + 2 };
+                    break;
+                case 2: currentPosition = { x: x.charCodeAt() + 2, y: y + variator };
+                    break;
+                case 3: currentPosition = { x: x.charCodeAt() + variator, y: y - 2 };
+                    break;
+                case 4: currentPosition = { x: x.charCodeAt() - 2, y: y + variator };
+                    break;
             }
-            if (currentPosition.x <= 72 && currentPosition.x >= 65 && currentPosition.y <= 8 && currentPosition.y >= 1){
+            if (currentPosition.x <= 72 && currentPosition.x >= 65 && currentPosition.y <= 8 && currentPosition.y >= 1) {
                 if (!positions[String.fromCharCode(currentPosition.x)][currentPosition.y] || positions[String.fromCharCode(currentPosition.x)][currentPosition.y].color !== this.color) {
                     moves.push(`${String.fromCharCode(currentPosition.x)}${currentPosition.y}`);
                 }
             }
             variator -= 2;
             if (variator < -1) {
-            direction++;
-            variator = 1;
+                direction++;
+                variator = 1;
             }
         }
         return moves;
-    }   
+    }
 }
 
 class Reina extends Pieza {
+    /* Instancia una pieza "caballo"
+
+        <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
+        <color> 1 para piezas blancas, 0 para piezas negras
+        <position> Debe ser la coordenada donde se encuentra la pieza en el tablero Ej: "A2"
+        <state> Es el estado de la pieza "Alive" para piezas vivas (Aun no se hace nada con este atributo)
+        */
     constructor(id, color, position = null, state = "Alive") {
         super(id, color, position, state);
         this.description = `Reina ${colores[color]}a ajedrez`;
@@ -189,6 +222,13 @@ class Reina extends Pieza {
 }
 
 class Rey extends Pieza {
+    /* Instancia una pieza "caballo"
+
+        <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
+        <color> 1 para piezas blancas, 0 para piezas negras
+        <position> Debe ser la coordenada donde se encuentra la pieza en el tablero Ej: "A2"
+        <state> Es el estado de la pieza "Alive" para piezas vivas (Aun no se hace nada con este atributo)
+        */
     constructor(id, color, position = null, state = "Alive") {
         super(id, color, position, state);
         this.description = `Rey ${colores[color]}o ajedrez`;
@@ -198,6 +238,13 @@ class Rey extends Pieza {
 }
 
 class Alfil extends Pieza {
+    /* Instancia una pieza "caballo"
+
+        <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
+        <color> 1 para piezas blancas, 0 para piezas negras
+        <position> Debe ser la coordenada donde se encuentra la pieza en el tablero Ej: "A2"
+        <state> Es el estado de la pieza "Alive" para piezas vivas (Aun no se hace nada con este atributo)
+        */
     constructor(id, color, position = null, state = "Alive") {
         super(id, color, position, state);
         this.description = `Alfil ${colores[color]}o ajedrez`;

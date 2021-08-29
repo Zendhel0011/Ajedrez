@@ -135,7 +135,6 @@ const startGame = () => {
     let pieces = createPieces();
     positionePieces(pieces);
     events()
-
     //Se dibujan las piezas en la fase inicial
     for (i = 1; i <= 8; i++) {
         positions[letter[i]][8].draw()
