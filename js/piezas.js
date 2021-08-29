@@ -129,7 +129,7 @@ class Torre extends Pieza {
                 count = 0;
             }
         } while (direcciones <= 4)
-        console.log(moves)
+        return moves;
 
     }
 
