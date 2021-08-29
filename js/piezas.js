@@ -36,27 +36,46 @@ class Peon extends Pieza {
     }
 
     possiblesMoves = () => {
-        if (this.color === 0 && Object.values(letter).indexOf(this.position[0]) != -1) {
-            let x = this.position[0]
-            let y = Number(this.position[1])
-            let moves = [];
-            if (x !== "H") {
-                if (positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1].color != this.color) {
-                    moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y - 1}`)
-                }
-            }
-            if (x !== "A") {
-                if (positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1].color != this.color) {
-                    moves.push(`${String.fromCharCode(x.charCodeAt() - 1)}${y - 1}`)
-                }
-            }
-
-
-            if (y === 7) {
-                console.log(positions[x][y - 1], positions[x][y - 2])
+        let x = this.position[0]
+        let y = Number(this.position[1])
+        let moves = [];
+        let mcolor = {
+            0: -1,
+            1: 1
+        }
+        if (x !== "H") {
+            if (positions[String.fromCharCode(x.charCodeAt() + 1)][y + mcolor[this.color]] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y + mcolor[this.color]].color != this.color) {
+                moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y + mcolor[this.color]}`)
             }
         }
+        if (x !== "A") {
+            if (positions[String.fromCharCode(x.charCodeAt() - 1)][y + mcolor[this.color]] != null && positions[String.fromCharCode(x.charCodeAt() - 1)][y + mcolor[this.color]].color != this.color) {
+                moves.push(`${String.fromCharCode(x.charCodeAt() - 1)}${y + mcolor[this.color]}`)
+            }
+        }
+        if (y === 7 && this.color === 0 && positions[x][y - 1] === null) {
+            if (positions[x][y - 2] == null) {
+                moves.push(`${x}${y - 1}`, `${x}${y - 2}`);
+            } else {
+                moves.push(`${x}${y - 1}`);
+            }
+        }
+        if (y === 2 && this.color === 1 && positions[x][y + 1] === null) {
+            if (positions[x][y + 2] === null) {
+                moves.push(`${x}${y + 1}`, `${x}${y + 2}`)
+            } else {
+                moves.push(`${x}${y + 1}`);
+            }
+        }
+        if (y !== 7 && this.color === 0 && positions[x][y - 1] === null) {
+            moves.push(`${x}${y - 1}`);
+        }
+        if (y !== 2 && this.color === 1 && positions[x][y + 1] === null) {
+            moves.push(`${x}${y + 1}`);
+        }
+        return moves
     }
+
 
 }
 
