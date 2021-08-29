@@ -109,19 +109,19 @@ class Torre extends Pieza {
         let y = Number(this.position[1]);
         let currentPos;
         let count = 0;
-        let direcciones = 1
-        do {
+        let direction = 1
+        while (direction <= 4) {
             count++
-            if (direcciones === 1) {
+            if (direction === 1) {
                 currentPos = y + count
             }
-            else if (direcciones === 2) {
+            else if (direction === 2) {
                 currentPos = x.charCodeAt() + count
             }
-            else if (direcciones === 3) {
+            else if (direction === 3) {
                 currentPos = y - count
             }
-            else if (direcciones === 4) {
+            else if (direction === 4) {
                 currentPos = x.charCodeAt() - count
             }
             if (currentPos <= 8 && currentPos >= 1) {
@@ -129,7 +129,7 @@ class Torre extends Pieza {
                     moves.push(`${x}${currentPos}`);
                 }
                 if (positions[x][currentPos]) {
-                    direcciones++
+                    direction++
                     count = 0
                 }
             }
@@ -138,15 +138,15 @@ class Torre extends Pieza {
                     moves.push(`${String.fromCharCode(currentPos)}${y}`)
                 }
                 if (positions[String.fromCharCode(currentPos)][y]) {
-                    direcciones++
+                    direction++
                     count = 0
                 }
             }
             if ((currentPos > 8 && currentPos < 65) || currentPos < 1 || currentPos > 72) {
-                direcciones++;
+                direction++;
                 count = 0;
             }
-        } while (direcciones <= 4)
+        }
         return moves;
 
     }
@@ -178,21 +178,21 @@ class Caballo extends Pieza {
 
         let direction = 1;
         let variator = 1;
-        let currentPosition = {};
+        let currentPos = {};
         while (direction <= 4) {
             switch (direction) {
-                case 1: currentPosition = { x: x.charCodeAt() + variator, y: y + 2 };
+                case 1: currentPos = { x: x.charCodeAt() + variator, y: y + 2 };
                     break;
-                case 2: currentPosition = { x: x.charCodeAt() + 2, y: y + variator };
+                case 2: currentPos = { x: x.charCodeAt() + 2, y: y + variator };
                     break;
-                case 3: currentPosition = { x: x.charCodeAt() + variator, y: y - 2 };
+                case 3: currentPos = { x: x.charCodeAt() + variator, y: y - 2 };
                     break;
-                case 4: currentPosition = { x: x.charCodeAt() - 2, y: y + variator };
+                case 4: currentPos = { x: x.charCodeAt() - 2, y: y + variator };
                     break;
             }
-            if (currentPosition.x <= 72 && currentPosition.x >= 65 && currentPosition.y <= 8 && currentPosition.y >= 1) {
-                if (!positions[String.fromCharCode(currentPosition.x)][currentPosition.y] || positions[String.fromCharCode(currentPosition.x)][currentPosition.y].color !== this.color) {
-                    moves.push(`${String.fromCharCode(currentPosition.x)}${currentPosition.y}`);
+            if (currentPos.x <= 72 && currentPos.x >= 65 && currentPos.y <= 8 && currentPos.y >= 1) {
+                if (!positions[String.fromCharCode(currentPos.x)][currentPos.y] || positions[String.fromCharCode(currentPos.x)][currentPos.y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPos.x)}${currentPos.y}`);
                 }
             }
             variator -= 2;
@@ -250,5 +250,40 @@ class Alfil extends Pieza {
         this.description = `Alfil ${colores[color]}o ajedrez`;
         this.img = `img/bishop_${color}.png`;
     }
+    move = () => {
 
+    }
+    possiblesMoves = () => {
+        let x = this.position[0];
+        let y = Number(this.position[1]);
+        let moves = [];
+        let direction = 1;
+        let currentPos = {x: x.charCodeAt(), y: y};
+        let options = {
+            1: [1, 1],
+            2: [1, -1],
+            3: [-1, -1],
+            4: [-1, 1]
+        }
+        while (direction <= 4) {
+            currentPos.x += options[direction][0];
+            currentPos.y += options[direction][1];
+            if (currentPos.x >= 65 && currentPos.x <= 72 && currentPos.y >= 1 && currentPos.y <= 8) {
+                if (!positions[String.fromCharCode(currentPos.x)][currentPos.y] || positions[String.fromCharCode(currentPos.x)][currentPos.y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPos.x)}${currentPos.y}`);
+                }
+                if (positions[String.fromCharCode(currentPos.x)][currentPos.y]) {
+                    direction ++;
+                    currentPos.x = x.charCodeAt();
+                    currentPos.y = y;
+                }
+            }
+            else{
+                direction ++;
+                currentPos.x = x.charCodeAt();
+                currentPos.y = y;
+            }
+        }
+        return moves;
+    }
 }
