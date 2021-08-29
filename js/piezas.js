@@ -85,6 +85,53 @@ class Torre extends Pieza {
         this.description = `Torre ${colores[color]}a ajedrez`;
         this.img = `img/rook_${color}.png`;
     }
+    possiblesMoves = () => {
+        let moves = [];
+        let x = this.position[0];
+        let y = Number(this.position[1]);
+        let currentPos;
+        let count = 0;
+        let direcciones = 1
+        do {
+            count++
+            if (direcciones === 1) {
+                currentPos = y + count
+            }
+            else if (direcciones === 2) {
+                currentPos = x.charCodeAt() + count
+            }
+            else if (direcciones === 3) {
+                currentPos = y - count
+            }
+            else if (direcciones === 4) {
+                currentPos = x.charCodeAt() - count
+            }
+            if (currentPos <= 8 && currentPos >= 1) {
+                if (!positions[x][currentPos] || positions[x][currentPos].color !== this.color) {
+                    moves.push(`${x}${currentPos}`);
+                }
+                if (positions[x][currentPos]) {
+                    direcciones++
+                    count = 0
+                }
+            }
+            if (currentPos <= 72 && currentPos >= 65) {
+                if (!positions[String.fromCharCode(currentPos)][y] || positions[String.fromCharCode(currentPos)][y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPos)}${y}`)
+                }
+                if (positions[String.fromCharCode(currentPos)][y]) {
+                    direcciones++
+                    count = 0
+                }
+            }
+            if ((currentPos > 8 && currentPos < 65) || currentPos < 1 || currentPos > 72) {
+                direcciones++;
+                count = 0;
+            }
+        } while (direcciones <= 4)
+        console.log(moves)
+
+    }
 
 }
 
@@ -95,45 +142,11 @@ class Caballo extends Pieza {
         this.img = `img/knight_${color}.png`;
     }
 
-    move = () => {}
+    move = () => { }
 
     possiblesMoves = () => {
-        let x = this.position[0];
-        let y = Number(this.position[1]);
-        let moves = [];
-        let xLimits = [0, 0];
-        let yLimits = [0, 0];
-        
-        let limits = {
-            A: [-1, -2],
-            B: [0, -2],
-            G: [0, 2],
-            H: [1, 2],
-            1: [-1, -2],
-            2: [0, -2],
-            7: [0, 2],
-            8: [1, 2]
-        }
-        xLimits.push(limits[x][0], limits[x][1]);
-        yLimits.push(limits[y][0], limits[y][1]);
 
-        if (xLimits[0] === 0 && xLimits[1] === 0) {
-            
-        }
-        
-
-        if (x !== "H") {
-            if (positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() + 1)][y - 1].color != this.color) {
-                moves.push(`${String.fromCharCode(x.charCodeAt() + 1)}${y - 1}`)
-            }
-        }
-        if (x !== "A") {
-            if (positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1] != null && positions[String.fromCharCode(x.charCodeAt() - 1)][y - 1].color != this.color) {
-                moves.push(`${String.fromCharCode(x.charCodeAt() - 1)}${y - 1}`)
-            }
-        }
-        return moves;
-    }   
+    }
 }
 
 class Reina extends Pieza {
