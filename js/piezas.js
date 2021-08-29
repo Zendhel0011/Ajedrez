@@ -85,6 +85,53 @@ class Torre extends Pieza {
         this.description = `Torre ${colores[color]}a ajedrez`;
         this.img = `img/rook_${color}.png`;
     }
+    possiblesMoves = () => {
+        let moves = [];
+        let x = this.position[0];
+        let y = Number(this.position[1]);
+        let currentPos;
+        let count = 0;
+        let direcciones = 1
+        do {
+            count++
+            if (direcciones === 1) {
+                currentPos = y + count
+            }
+            else if (direcciones === 2) {
+                currentPos = x.charCodeAt() + count
+            }
+            else if (direcciones === 3) {
+                currentPos = y - count
+            }
+            else if (direcciones === 4) {
+                currentPos = x.charCodeAt() - count
+            }
+            if (currentPos <= 8 && currentPos >= 1) {
+                if (!positions[x][currentPos] || positions[x][currentPos].color !== this.color) {
+                    moves.push(`${x}${currentPos}`);
+                }
+                if (positions[x][currentPos]) {
+                    direcciones++
+                    count = 0
+                }
+            }
+            if (currentPos <= 72 && currentPos >= 65) {
+                if (!positions[String.fromCharCode(currentPos)][y] || positions[String.fromCharCode(currentPos)][y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPos)}${y}`)
+                }
+                if (positions[String.fromCharCode(currentPos)][y]) {
+                    direcciones++
+                    count = 0
+                }
+            }
+            if ((currentPos > 8 && currentPos < 65) || currentPos < 1 || currentPos > 72) {
+                direcciones++;
+                count = 0;
+            }
+        } while (direcciones <= 4)
+        return moves;
+
+    }
 
 }
 
@@ -95,9 +142,10 @@ class Caballo extends Pieza {
         this.img = `img/knight_${color}.png`;
     }
 
-    move = () => {}
+    move = () => { }
 
     possiblesMoves = () => {
+
         let x = this.position[0];
         let y = Number(this.position[1]);
         let moves = [];
