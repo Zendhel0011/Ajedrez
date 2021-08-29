@@ -146,7 +146,37 @@ class Caballo extends Pieza {
 
     possiblesMoves = () => {
 
-    }
+        let x = this.position[0];
+        let y = Number(this.position[1]);
+        let moves = [];
+
+        let direction = 1;
+        let variator = 1;
+        let currentPosition = {};
+        while(direction <= 4){
+            switch(direction) {
+                case 1: currentPosition = {x: x.charCodeAt() + variator, y: y + 2};
+                break;
+                case 2: currentPosition = {x: x.charCodeAt() + 2, y: y + variator};
+                break;
+                case 3: currentPosition = {x: x.charCodeAt() + variator, y: y - 2};
+                break;
+                case 4: currentPosition = {x: x.charCodeAt() - 2, y: y + variator};
+                break;
+            }
+            if (currentPosition.x <= 72 && currentPosition.x >= 65 && currentPosition.y <= 8 && currentPosition.y >= 1){
+                if (!positions[String.fromCharCode(currentPosition.x)][currentPosition.y] || positions[String.fromCharCode(currentPosition.x)][currentPosition.y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPosition.x)}${currentPosition.y}`);
+                }
+            }
+            variator -= 2;
+            if (variator < -1) {
+            direction++;
+            variator = 1;
+            }
+        }
+        return moves;
+    }   
 }
 
 class Reina extends Pieza {
