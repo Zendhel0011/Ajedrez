@@ -13,6 +13,12 @@ class Pieza {
         document.getElementById(this.position).innerHTML = `
         <img src=${this.img} alt="${this.description}">
         `;
+        this.event();
+    }
+    event = () => {
+        let square = document.getElementById(this.position)
+        square.removeEventListener("click", moveEventHandler);
+        square.addEventListener("click", moveEventHandler);
     }
 
     possiblesMoves = () => {
@@ -104,9 +110,9 @@ class Torre extends Pieza {
 
     //Función que devuelve un array con los posibles movimientos para la torre en la posicion actual.
     possiblesMoves = () => {
-        let moves = [];
         let x = this.position[0];
         let y = Number(this.position[1]);
+        let moves = [];
         let currentPos;
         let count = 0;
         let direcciones = 1
@@ -171,11 +177,9 @@ class Caballo extends Pieza {
 
     //Método que devuelve un array con los posibles movimientos para el caballo en la posicion actual.
     possiblesMoves = () => {
-
         let x = this.position[0];
         let y = Number(this.position[1]);
         let moves = [];
-
         let direction = 1;
         let variator = 1;
         let currentPosition = {};
@@ -219,6 +223,52 @@ class Reina extends Pieza {
         this.img = `img/queen_${color}.png`;
     }
 
+    move = () => {
+
+    }
+
+    possiblesMoves = () => {
+        let x = this.position[0];
+        let y = Number(this.position[1]);
+        let moves = [];
+        let direction = 1;
+        let currentPos = {};
+        let count = 0;
+        while (direction <= 8) {
+            count++;
+            switch (direction) {
+                case 1: currentPos = { x: x.charCodeAt(), y: y + count };
+                    break;
+                case 2: currentPos = { x: x.charCodeAt() + count, y: y + count }
+                    break;
+                case 3: currentPos = { x: x.charCodeAt() + count, y: y }
+                    break;
+                case 4: currentPos = { x: x.charCodeAt() + count, y: y - count }
+                    break;
+                case 5: currentPos = { x: x.charCodeAt(), y: y - count };
+                    break;
+                case 6: currentPos = { x: x.charCodeAt() - count, y: y - count }
+                    break;
+                case 7: currentPos = { x: x.charCodeAt() - count, y: y }
+                    break;
+                case 8: currentPos = { x: x.charCodeAt() - count, y: y + count }
+                    break;
+            }
+            if (currentPos.x <= 72 && currentPos.x >= 65 && currentPos.y <= 8 && currentPos.y >= 1) {
+                if (!positions[String.fromCharCode(currentPos.x)][currentPos.y] || positions[String.fromCharCode(currentPos.x)][currentPos.y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPos.x)}${currentPos.y}`);
+                }
+                if (positions[String.fromCharCode(currentPos.x)][currentPos.y]) {
+                    direction++;
+                    count = 0;
+                }
+            } else {
+                direction++;
+                count = 0;
+            }
+        }
+        return moves;
+    }
 }
 
 class Rey extends Pieza {
@@ -234,7 +284,6 @@ class Rey extends Pieza {
         this.description = `Rey ${colores[color]}o ajedrez`;
         this.img = `img/king_${color}.png`;
     }
-
 }
 
 class Alfil extends Pieza {
@@ -250,5 +299,4 @@ class Alfil extends Pieza {
         this.description = `Alfil ${colores[color]}o ajedrez`;
         this.img = `img/bishop_${color}.png`;
     }
-
 }

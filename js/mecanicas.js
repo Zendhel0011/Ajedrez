@@ -1,23 +1,23 @@
 
 const paintedSquares = [];
-const events = () => {
-    for (let x in positions) {
-        for (let y in positions[x]) {
-            if (positions[x][y]) { //comprueba si hay una ficha en esta casilla
-                let square = document.getElementById(`${x}${y}`)
-                square.addEventListener("click", () => { //Asigna evento solo para casillas con piezas
-                    clearSquare();
-                    if (positions[square.id[0]][square.id[1]]) {
-                        let currentPiece = positions[square.id[0]][square.id[1]];
-                        let positionsList = currentPiece.possiblesMoves();
-                        console.log(positionsList)
-                        positionsList.forEach((ele) => paintSquare(ele));
-                    }
-                })
-            }
-        }
-    }
-}
+// const events = () => {
+//     for (let x in positions) {
+//         for (let y in positions[x]) {
+//             if (positions[x][y]) { //comprueba si hay una ficha en esta casilla
+//                 let square = document.getElementById(`${x}${y}`)
+//                 square.addEventListener("click", () => { //Asigna evento solo para casillas con piezas
+//                     clearSquare();
+//                     if (positions[square.id[0]][square.id[1]]) {
+//                         let currentPiece = positions[square.id[0]][square.id[1]];
+//                         let positionsList = currentPiece.possiblesMoves();
+//                         console.log(positionsList)
+//                         positionsList.forEach((ele) => paintSquare(ele));
+//                     }
+//                 })
+//             }
+//         }
+//     }
+// }
 //pinta las casillas cuando vas a caminar con una pieza
 const paintSquare = (ele) => {
     if (!positions[ele[0]][ele[1]]) {
@@ -34,4 +34,15 @@ const clearSquare = () => {
         document.getElementById(ele).classList.remove("casilla--posiblemove", "casilla--killeable");
     })
     paintedSquares.splice(0);
+}
+function moveEventHandler() {
+    //Asigna evento solo para casillas con piezas
+    clearSquare();
+    if (positions[this.id[0]][this.id[1]]) {
+        let currentPiece = positions[this.id[0]][this.id[1]];
+        let positionsList = currentPiece.possiblesMoves();
+        console.log(positionsList)
+        positionsList.forEach((ele) => paintSquare(ele));
+    }
+
 }

@@ -10,16 +10,7 @@ const letter = {
     7: "G",
     8: "H"
 };
-const rletter = {
-    "A": 1,
-    "B": 2,
-    "C": 3,
-    "D": 4,
-    "E": 5,
-    "F": 6,
-    "G": 7,
-    "H": 8
-}
+
 
 const positions = {};
 
@@ -134,7 +125,7 @@ function positionePieces(pieces) {
 const startGame = () => {
     let pieces = createPieces();
     positionePieces(pieces);
-    events()
+    //events()
     //Se dibujan las piezas en la fase inicial
     for (i = 1; i <= 8; i++) {
         positions[letter[i]][8].draw()

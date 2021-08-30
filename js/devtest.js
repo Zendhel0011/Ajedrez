@@ -22,7 +22,7 @@ const createTestPiece = (tipo, color, posicion) => {
     }
     positions[posicion[0]][posicion[1]] = piece;
     piece.draw();
-    events();
+    // events();
     return piece;
 }
 function idNum(min, max) {
