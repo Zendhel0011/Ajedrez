@@ -15,14 +15,26 @@ class Pieza {
         `;
         this.event();
     }
+
+    die = () => {
+        document.getElementById(this.position).removeEventListener("click", selectPieceHandler);
+        document.getElementById(this.position).innerHTML = "";
+        this.position = null;
+        this.state = "Dead";
+    }
+
     event = () => {
         let square = document.getElementById(this.position)
-        square.removeEventListener("click", moveEventHandler);
-        square.addEventListener("click", moveEventHandler);
+        square.removeEventListener("click", selectPieceHandler);
+        square.addEventListener("click", selectPieceHandler);
     }
 
     possiblesMoves = () => {
         console.log("Esta no se mueve")
+    }
+
+    move() {
+
     }
 }
 
@@ -182,7 +194,7 @@ class Caballo extends Pieza {
         let moves = [];
         let direction = 1;
         let variator = 1;
-        let currentPos = {x: x.charCodeAt(), y: y};
+        let currentPos = { x: x.charCodeAt(), y: y };
         let options = {
             1: [0, 2],
             2: [2, 0],
@@ -208,7 +220,7 @@ class Caballo extends Pieza {
                 direction++;
                 variator = 1;
             }
-            currentPos = {x: x.charCodeAt(), y: y};
+            currentPos = { x: x.charCodeAt(), y: y };
         }
         return moves;
     }
@@ -237,7 +249,7 @@ class Reina extends Pieza {
         let y = Number(this.position[1]);
         let moves = [];
         let direction = 1;
-        let currentPos = {x: x.charCodeAt(), y: y};
+        let currentPos = { x: x.charCodeAt(), y: y };
         let count = 0;
         let options = {
             1: [0, 1],
@@ -265,7 +277,7 @@ class Reina extends Pieza {
                 direction++;
                 count = 0;
             }
-            currentPos = {x: x.charCodeAt(), y: y};
+            currentPos = { x: x.charCodeAt(), y: y };
         }
         return moves;
     }
@@ -289,7 +301,7 @@ class Rey extends Pieza {
         let x = this.position[0];
         let y = Number(this.position[1]);
         let moves = [];
-        let currentPos = {x: x.charCodeAt(), y: y};
+        let currentPos = { x: x.charCodeAt(), y: y };
         let direction = 1;
         let options = {
             1: [0, 1],
@@ -311,7 +323,7 @@ class Rey extends Pieza {
             }
             currentPos.x = x.charCodeAt();
             currentPos.y = y;
-            direction ++;
+            direction++;
         }
         return moves;
     }

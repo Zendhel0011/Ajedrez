@@ -1,5 +1,4 @@
 //Saque esto para utilizarlo tambien en otras funciones
-
 const letter = {
     1: "A",
     2: "B",
