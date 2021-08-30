@@ -15,8 +15,13 @@ const positions = {};
 
 document.addEventListener("DOMContentLoaded", () => {
     const game = document.getElementById("game");
+    const lettersup = document.getElementsByClassName("letters");
+    const numbersup = document.getElementsByClassName("numbers");
     let color = true;
     let casillas = `<div class="casilla" id=""></div>`;
+    let letters = `<div class="letter"></div>`
+    let numbers = `<div class="number"></div>`
+
     for (let i = 8; i >= 1; i--) {
         for (let j = 1; j <= 8; j++) {
             if (!color) {
@@ -29,6 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
             positions[letter[j]] = {};
         }
         color = !color;
+        letters = `<div class="letter">${letter[i]}</div>`
+        numbers = `<div class="number">${Object.keys(letter)[i - 1]}</div>`
+        lettersup[0].innerHTML = letters + lettersup[0].innerHTML
+        lettersup[1].innerHTML = letters + lettersup[1].innerHTML
+        numbersup[0].innerHTML += numbers;
+        numbersup[1].innerHTML += numbers;
+
     }
     startGame();
 });
@@ -132,4 +144,5 @@ const startGame = () => {
         positions[letter[i]][2].draw()
         positions[letter[i]][1].draw()
     }
+
 }

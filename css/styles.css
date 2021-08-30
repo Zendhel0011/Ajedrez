@@ -14,7 +14,6 @@
     border: 1px lightslategrey solid;
     border-radius: 2em;
 
-
     background-color: lightcoral;
 }
 .game{
@@ -66,4 +65,59 @@
 div img{
     position: relative;
     z-index: 100;
+}
+.letters{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: max-content;
+    height: 2.8em;
+
+    background-color: inherit;
+
+}
+.letters--up{
+    top: 0;
+    left: 2.8em;
+    
+}
+.letters--down{
+    bottom: 0;
+    left: 2.8em;
+    
+}
+.letter{
+    text-align: center;
+    font-size: 1.5rem;
+    width: 60px;
+    height: 2.8rem;
+    color: lightseagreen;
+}
+
+.numbers{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 2.8em;
+    height: max-content;
+
+    background-color: inherit;
+}
+.numbers--right{
+    top: 2.8em;
+    right: 0;
+}
+.numbers--left{
+    top: 2.8em;
+    left: 0;
+
+}
+.number{
+    text-align: center;
+    font-size: 1.5rem;
+    width: 2.8rem;
+    height: 60px;
+    color: lightseagreen;
 }
