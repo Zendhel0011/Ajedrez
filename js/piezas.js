@@ -160,7 +160,7 @@ class Torre extends Pieza {
 }
 
 class Caballo extends Pieza {
-    /* Instancia una pieza "caballo"
+    /* Instancia una pieza "Caballo"
     
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
@@ -215,7 +215,7 @@ class Caballo extends Pieza {
 }
 
 class Reina extends Pieza {
-    /* Instancia una pieza "reina"
+    /* Instancia una pieza "Reina"
 
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
@@ -272,7 +272,7 @@ class Reina extends Pieza {
 }
 
 class Rey extends Pieza {
-    /* Instancia una pieza "rey"
+    /* Instancia una pieza "Rey"
 
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
@@ -318,7 +318,7 @@ class Rey extends Pieza {
 }
 
 class Alfil extends Pieza {
-    /* Instancia una pieza "alfil"
+    /* Instancia una pieza "Alfil"
 
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
