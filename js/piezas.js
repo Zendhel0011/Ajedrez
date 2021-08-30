@@ -182,17 +182,21 @@ class Caballo extends Pieza {
         let moves = [];
         let direction = 1;
         let variator = 1;
-        let currentPos = {};
+        let currentPos = {x: x.charCodeAt(), y: y};
+        let options = {
+            1: [0, 2],
+            2: [2, 0],
+            3: [0, -2],
+            4: [-2, 0]
+        }
         while (direction <= 4) {
-            switch (direction) {
-                case 1: currentPos = { x: x.charCodeAt() + variator, y: y + 2 };
-                    break;
-                case 2: currentPos = { x: x.charCodeAt() + 2, y: y + variator };
-                    break;
-                case 3: currentPos = { x: x.charCodeAt() + variator, y: y - 2 };
-                    break;
-                case 4: currentPos = { x: x.charCodeAt() - 2, y: y + variator };
-                    break;
+            if (options[direction][0] === 0) {
+                currentPos.x += variator;
+                currentPos.y += options[direction][1];
+            }
+            else {
+                currentPos.x += options[direction][0];
+                currentPos.y += variator;
             }
             if (currentPos.x <= 72 && currentPos.x >= 65 && currentPos.y <= 8 && currentPos.y >= 1) {
                 if (!positions[String.fromCharCode(currentPos.x)][currentPos.y] || positions[String.fromCharCode(currentPos.x)][currentPos.y].color !== this.color) {
@@ -204,13 +208,14 @@ class Caballo extends Pieza {
                 direction++;
                 variator = 1;
             }
+            currentPos = {x: x.charCodeAt(), y: y};
         }
         return moves;
     }
 }
 
 class Reina extends Pieza {
-    /* Instancia una pieza "caballo"
+    /* Instancia una pieza "reina"
 
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
@@ -232,28 +237,22 @@ class Reina extends Pieza {
         let y = Number(this.position[1]);
         let moves = [];
         let direction = 1;
-        let currentPos = {};
+        let currentPos = {x: x.charCodeAt(), y: y};
         let count = 0;
+        let options = {
+            1: [0, 1],
+            2: [1, 1],
+            3: [1, 0],
+            4: [1, -1],
+            5: [0, -1],
+            6: [-1, -1],
+            7: [-1, 0],
+            8: [-1, 1]
+        }
         while (direction <= 8) {
             count++;
-            switch (direction) {
-                case 1: currentPos = { x: x.charCodeAt(), y: y + count };
-                    break;
-                case 2: currentPos = { x: x.charCodeAt() + count, y: y + count }
-                    break;
-                case 3: currentPos = { x: x.charCodeAt() + count, y: y }
-                    break;
-                case 4: currentPos = { x: x.charCodeAt() + count, y: y - count }
-                    break;
-                case 5: currentPos = { x: x.charCodeAt(), y: y - count };
-                    break;
-                case 6: currentPos = { x: x.charCodeAt() - count, y: y - count }
-                    break;
-                case 7: currentPos = { x: x.charCodeAt() - count, y: y }
-                    break;
-                case 8: currentPos = { x: x.charCodeAt() - count, y: y + count }
-                    break;
-            }
+            currentPos.x += count * options[direction][0];
+            currentPos.y += count * options[direction][1];
             if (currentPos.x <= 72 && currentPos.x >= 65 && currentPos.y <= 8 && currentPos.y >= 1) {
                 if (!positions[String.fromCharCode(currentPos.x)][currentPos.y] || positions[String.fromCharCode(currentPos.x)][currentPos.y].color !== this.color) {
                     moves.push(`${String.fromCharCode(currentPos.x)}${currentPos.y}`);
@@ -266,13 +265,14 @@ class Reina extends Pieza {
                 direction++;
                 count = 0;
             }
+            currentPos = {x: x.charCodeAt(), y: y};
         }
         return moves;
     }
 }
 
 class Rey extends Pieza {
-    /* Instancia una pieza "caballo"
+    /* Instancia una pieza "rey"
 
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
@@ -284,10 +284,41 @@ class Rey extends Pieza {
         this.description = `Rey ${colores[color]}o ajedrez`;
         this.img = `img/king_${color}.png`;
     }
+
+    possiblesMoves = () => {
+        let x = this.position[0];
+        let y = Number(this.position[1]);
+        let moves = [];
+        let currentPos = {x: x.charCodeAt(), y: y};
+        let direction = 1;
+        let options = {
+            1: [0, 1],
+            2: [1, 1],
+            3: [1, 0],
+            4: [1, -1],
+            5: [0, -1],
+            6: [-1, -1],
+            7: [-1, 0],
+            8: [-1, 1]
+        }
+        while (direction <= 8) {
+            currentPos.x += options[direction][0];
+            currentPos.y += options[direction][1];
+            if (currentPos.x >= 65 && currentPos.x <= 72 && currentPos.y >= 1 && currentPos.y <= 8) {
+                if (!positions[String.fromCharCode(currentPos.x)][currentPos.y] || positions[String.fromCharCode(currentPos.x)][currentPos.y].color !== this.color) {
+                    moves.push(`${String.fromCharCode(currentPos.x)}${currentPos.y}`);
+                }
+            }
+            currentPos.x = x.charCodeAt();
+            currentPos.y = y;
+            direction ++;
+        }
+        return moves;
+    }
 }
 
 class Alfil extends Pieza {
-    /* Instancia una pieza "caballo"
+    /* Instancia una pieza "alfil"
 
         <id> puede tomar cualquier valor que identidique unicamente a la instancia actual de la pieza.
         <color> 1 para piezas blancas, 0 para piezas negras
