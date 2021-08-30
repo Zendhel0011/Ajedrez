@@ -32,10 +32,6 @@ class Pieza {
     possiblesMoves = () => {
         console.log("Esta no se mueve")
     }
-
-    move() {
-
-    }
 }
 
 const colores = {
@@ -57,9 +53,6 @@ class Peon extends Pieza {
         this.img = `img/pawn_${color}.png`;
     }
 
-    move = () => {
-
-    }
     //Funcion que devuelve un array con los posibles movimientos para el peón en la posicion actual.
     possiblesMoves = () => {
         let x = this.position[0]
@@ -166,7 +159,6 @@ class Torre extends Pieza {
             }
         }
         return moves;
-
     }
 
 }
@@ -184,8 +176,6 @@ class Caballo extends Pieza {
         this.description = `Caballo ${colores[color]}o ajedrez`;
         this.img = `img/knight_${color}.png`;
     }
-
-    move = () => { }
 
     //Método que devuelve un array con los posibles movimientos para el caballo en la posicion actual.
     possiblesMoves = () => {
@@ -238,10 +228,6 @@ class Reina extends Pieza {
         super(id, color, position, state);
         this.description = `Reina ${colores[color]}a ajedrez`;
         this.img = `img/queen_${color}.png`;
-    }
-
-    move = () => {
-
     }
 
     possiblesMoves = () => {
@@ -341,10 +327,6 @@ class Alfil extends Pieza {
         super(id, color, position, state);
         this.description = `Alfil ${colores[color]}o ajedrez`;
         this.img = `img/bishop_${color}.png`;
-    }
-
-    move = () => {
-
     }
 
     possiblesMoves = () => {
