@@ -13,7 +13,7 @@ class Pieza {
         document.getElementById(this.position).innerHTML = `
         <img src=${this.img} alt="${this.description}">
         `;
-        this.event();
+        // this.event();
     }
 
     die = () => {
@@ -23,11 +23,11 @@ class Pieza {
         this.state = "Dead";
     }
 
-    event = () => {
-        let square = document.getElementById(this.position)
-        square.removeEventListener("click", selectPieceHandler);
-        square.addEventListener("click", selectPieceHandler);
-    }
+    // event = () => {
+    //     let square = document.getElementById(this.position)
+    //     square.removeEventListener("click", selectPieceHandler);
+    //     square.addEventListener("click", selectPieceHandler);
+    // }
 
     possiblesMoves = () => {
         console.log("Esta no se mueve")
