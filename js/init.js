@@ -144,5 +144,5 @@ const startGame = () => {
         positions[letter[i]][2].draw()
         positions[letter[i]][1].draw()
     }
-
+    changeTurn();
 }

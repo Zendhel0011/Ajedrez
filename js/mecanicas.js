@@ -1,4 +1,5 @@
 const paintedSquares = [];
+let turn = false;
 //pinta las casillas cuando vas a caminar con una pieza
 const paintSquare = (ele) => {
     if (!positions[ele[0]][ele[1]]) {
@@ -42,4 +43,28 @@ function move() {
     positions[this.id[0]][this.id[1]] = myPiece;
     myPiece.draw();
     clearSquare();
+    changeTurn();
+}
+
+const changeTurn = () => {
+    for (let x in positions) {
+        for (let y in positions[x]) {
+            if (positions[x][y]) {
+                if (turn) {
+                    if (positions[x][y].color === 1) {
+                        document.getElementById(`${x}${y}`).removeEventListener("click", selectPieceHandler)
+                    } else if (positions[x][y].color === 0) {
+                        document.getElementById(`${x}${y}`).addEventListener("click", selectPieceHandler)
+                    }
+                } else {
+                    if (positions[x][y].color === 1) {
+                        document.getElementById(`${x}${y}`).addEventListener("click", selectPieceHandler)
+                    } else if (positions[x][y].color === 0) {
+                        document.getElementById(`${x}${y}`).removeEventListener("click", selectPieceHandler)
+                    }
+                }
+            }
+        }
+    }
+    turn = !turn
 }
